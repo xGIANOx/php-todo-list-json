@@ -1,5 +1,9 @@
 <?php
 
+$todo_json_string = file_get_contents('todo.json');
+// header('Content-Type: application/json');
+echo $todo_json_string;
+
 ?>
 
 <!DOCTYPE html>
@@ -16,15 +20,18 @@
 
     <h1 class="text-center mt-3">Todo List</h1>
 
-    <div class="container">
+    <div class="container_sm">
         <div class="card mt-5 py-3">
-            <ul class="m-0">
-                <li>ciao</li>
-                <li>ciao</li>
-                <li>ciao</li>
-                <li>ciao</li>
-
+            <ul class="m-0" id="todo-list">
+                <li v-for="todo in todos">
+                    {{ todo }}
+                </li>
+                
             </ul>
+        </div>
+        <div class="input-group mt-3">
+            <input type="text" class="form-control" placeholder="Add a new task" aria-label="Add a new task" aria-describedby="button-addon2" v-model="newTodo">
+            <button class="btn btn-outline-success" type="submit" value="submit" id="button-addon2">Add</button>
         </div>
     </div>
 

@@ -1,4 +1,7 @@
-.card{
+.container_sm{
     width: 40%;
     margin: auto;
+}
+ul{
+    list-style: none;
 }

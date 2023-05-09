@@ -1,45 +1,43 @@
-const { createApp } = Vue
+const { createApp } = Vue;
 createApp({
   data() {
     return {
-        todos: [],
-        api_url: 'readTodo.php',
-        newTodo: '',
+      todos: [],
+      api_url: 'readTodo.php',
+      newTodo: '',
     }
   },
   methods: {
-
     add_todo() {
-        const data = {
-          todo: this.newTodo,
-          status: "false"
-        };
-        axios.post(
-          "storeTodo.php",
-          { newTodo: this.newTodo },
-          {
-            headers: { "Content-Type": "application/x-www-form-urlencoded" }
-          }
-        )
+      axios.post(
+        "storeTodo.php",
+        { newTodo: this.newTodo },
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" }
+        }
+      )
         .then(response => {
-          console.log(response);
-          this.todos.unshift(data);
+          const newTodo = response.data.newTodo;
+          const status = response.data.status;
+          this.todos.unshift({ todo: newTodo, status: status });
           this.newTodo = "";
         })
         .catch(error => {
           console.error(error.message);
         });
+    },
+    updateTodoStatus(index) {
+        this.todos[index].completed = !this.todos[index].completed;
       },
   },
   mounted() {
-    console.log("MOUNTED");
     axios
       .get(this.api_url)
       .then(response => {
-        this.todos = response.data
+        this.todos = response.data;
       })
       .catch(error => {
         console.error(error.message);
       })
   }
-}).mount('#app')
+}).mount('#app');

@@ -7,6 +7,12 @@
     <title>php-todo-list-json</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: grey;
+        }
+    </style>
 </head>
 <body>
 
@@ -17,7 +23,8 @@
     <div class="container_sm">
         <div class="card mt-5 py-3">
             <ul class="m-0" id="todo-list">
-                <li v-for="(todo, index) in todos">
+            <li v-for="(todo, index) in todos" :key="index" :class="{ completed: todo.completed }">
+          <input type="checkbox" v-model="todo.completed" @change="updateTodoStatus(index)">
                     {{ todo.todo }}
                 </li>
                 

@@ -10,26 +10,26 @@ createApp({
   methods: {
 
     add_todo() {
-      console.log('add a new todo');
-
-      const data = {
-        newTodo: this.newTodo
-      }
-
-      axios.post(
-        'storeTodo.php',
-        data,
-        {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        }).then(response => {
+        const data = {
+          todo: this.newTodo,
+          status: "false"
+        };
+        axios.post(
+          "storeTodo.php",
+          { newTodo: this.newTodo },
+          {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" }
+          }
+        )
+        .then(response => {
           console.log(response);
-          this.todos = response.data
+          this.todos.unshift(data);
+          this.newTodo = "";
         })
         .catch(error => {
           console.error(error.message);
-        })
-
-    },
+        });
+      },
   },
   mounted() {
     console.log("MOUNTED");

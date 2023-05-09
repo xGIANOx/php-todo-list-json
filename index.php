@@ -17,8 +17,8 @@
     <div class="container_sm">
         <div class="card mt-5 py-3">
             <ul class="m-0" id="todo-list">
-                <li v-for="todo in todos">
-                    {{ todo }}
+                <li v-for="(todo, index) in todos">
+                    {{ todo.todo }}
                 </li>
                 
             </ul>
@@ -26,6 +26,7 @@
         <div class="input-group mt-3">
             <input type="text" placeholder="Add a new task" v-model="newTodo" @keyup.enter="add_todo">
         </div>
+        
     </div>
 
     </div>
